@@ -1,0 +1,290 @@
+<div class="m-8">
+  <h1 class="text-3xl font-semibold">Configuraciones</h1>
+
+  <div class="bg-white rounded-md px-4 py-2 my-5 mt-6">
+    <!-- Tabs  -->
+    <div class="flex items-center gap-4 border-b-2 border-slate-400">
+      <a
+      (click)="TabActivo('general')"
+      class="rounded-t-lg py-1 cursor-pointer"
+      [ngClass]="
+      {'border-b-4 border-black font-bold': activo == 'general',
+      '': activo != 'general'
+      }">
+        General
+      </a>
+      <a
+      (click)="TabActivo('dispositivos')"
+      class="ms-2 py-1 rounded-t-lg cursor-pointer"
+      [ngClass]="
+      {
+        'border-b-4 border-black font-bold': activo == 'dispositivos',
+        '': activo != 'dispositivos'
+      }">
+        Dispositivos
+      </a>
+      <a
+      (click)="TabActivo('seguridad')"
+      class="ms-2 py-1 rounded-t-lg cursor-pointer"
+      [ngClass]="{
+        'border-b-4 border-black font-bold': activo == 'seguridad',
+        '': activo != 'seguridad'
+      }">
+        Seguridad
+      </a>
+      <a
+      (click)="TabActivo('ayuda')"
+      class="ms-2 py-1 rounded-t-lg cursor-pointer"
+      [ngClass]="{
+        'border-b-4 border-black font-bold': activo == 'ayuda',
+        '': activo != 'ayuda'
+      }">
+        Ayuda
+      </a>
+    </div>
+
+    <!-- Contenidos -->
+    <div class="mt-5 w-full">
+      <div *ngIf="activo == 'general'">
+        <!-- Aspectos básicos -->
+        <table class="table-auto w-full">
+          <thead>
+            <tr class="border-b-2 border-black">
+              <th class="text-start text-lg" style="width: 60%;">Aspectos Básicos</th>
+              <th style="width: 40%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">Foto</td>
+              <td class="text-end pe-3">
+                <img class="inline-block h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Imagen de perfil">
+                <a class="font-semibold hover:underline text-lg ms-2" href="">Editar</a>
+              </td>
+            </tr>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">Nombre</td>
+              <td class="text-end pe-3">
+                Renzo Perez
+                <a class="font-semibold hover:underline text-lg ms-2" href="">Editar</a>
+              </td>
+            </tr>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">Correo electrónico personal</td>
+              <td class="text-end pe-3">
+                renzoperez434
+                <a class="font-semibold hover:underline text-lg ms-2" href="">Editar</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Preferencias -->
+        <table class="table-auto w-full mt-4">
+          <thead>
+            <tr class="border-b-2 border-black mt-2">
+              <th class="text-lg text-start" style="width: 60%;">Preferencias</th>
+              <th style="width: 40%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">Idioma</td>
+              <td class="text-end pe-3">Español (españa)
+                <a class="font-semibold hover:underline text-lg ms-2" href="">Editar</a>
+              </td>
+            </tr>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">Formato de fecha</td>
+              <td class="text-end pe-3">
+                <select name="formato_fecha" class="border border-black rounded-sm py-1" id="">
+                  <option value="dd/mm/yyyy">dd/mm/yyy</option>
+                  <option value="mm/dd/yyyy">mm/dd/yyyy</option>
+                  <option value="yyyy-mm-dd">yyyy-mm-dd</option>
+                </select>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Eliminar cuenta -->
+        <table class="table-auto w-full mt-4">
+          <thead>
+            <tr class="border-b-2 border-black">
+              <th class="text-start text-lg" style="width: 60%;">Eliminar cuenta</th>
+              <th style="width: 40%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ps-3 py-3">Eliminar cuenta</td>
+              <td class="text-end pe-3">
+                <button type="button" class="bg-red-500 text-white hover:bg-red-700 px-2 py-1 rounded-md">Eliminar cuenta</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    <!-- ... dentro de la sección *ngIf="activo == 'dispositivos'" -->
+      <div *ngIf="activo == 'dispositivos'">
+        <table class="table-auto w-full">
+          <thead>
+            <tr>
+              <th class="text-start text-lg" style="width: 60%;">Dispositivos conectados</th>
+              <th style="width: 40%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ps-3 py-3 flex items-center gap-2">
+                  <svg class="w-6" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>chrome-color</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Color-" transform="translate(-400.000000, -1043.000000)"> <g id="chrome" transform="translate(400.000000, 1043.000000)"> <path d="M5.7954035,8.36130434 C16.9522782,-4.62351526 37.639151,-2.06037988 45.3727574,13.1072081 C39.9288251,13.1091897 31.4040328,13.1055761 26.786937,13.1072081 C23.4382318,13.1083738 21.2761308,13.0322537 18.9347285,14.2648621 C16.1820632,15.7138239 14.1051274,18.3997073 13.3801164,21.5544341 L5.7954035,8.36130434 L5.7954035,8.36130434 Z" id="chrome-icon-path" fill="#EA4335"> </path> <path d="M16.015461,23.9991346 C16.015461,28.3998753 19.5936811,31.9800817 23.9919804,31.9800817 C28.3901632,31.9800817 31.9683834,28.3998753 31.9683834,23.9991346 C31.9683834,19.5985104 28.3901632,16.0181875 23.9919804,16.0181875 C19.5936811,16.0181875 16.015461,19.5985104 16.015461,23.9991346 L16.015461,23.9991346 Z" id="chrome-icon-path" fill="#4285F4"> </path> <path d="M27.0876366,34.4456482 C22.6105798,35.7761751 17.371347,34.3006354 14.5014777,29.3468879 C12.3108329,25.5655987 6.52286114,15.4823164 3.89206021,10.8973955 C-5.32185953,25.0194695 2.61924235,44.2642006 19.3464574,47.5489026 L27.0876366,34.4456482 L27.0876366,34.4456482 Z" id="chrome-icon-path" fill="#34A853"> </path> <path d="M31.4014697,16.0181875 C35.1303309,19.4863704 35.9427207,25.102234 33.4168909,29.4566966 C31.5138971,32.7374352 25.4402549,42.9884614 22.4966379,47.9523505 C39.730883,49.0147671 52.2944399,32.1238121 46.6195946,16.0181875 L31.4014697,16.0181875 L31.4014697,16.0181875 Z" id="chrome-icon-path" fill="#FBBC05"> </path> </g> </g> </g> </g></svg>
+                Chrome en Windows
+              </td>
+              <td class="text-end pe-3">
+                <a class="text-green-500 hover:text-green-700 text-lg" href="">Actual</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="ps-3 py-3 flex items-center gap-2">
+                  <svg class="w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 18.01V18M8 3H16C17.1046 3 18 3.89543 18 5V19C18 20.1046 17.1046 21 16 21H8C6.89543 21 6 20.1046 6 19V5C6 3.89543 6.89543 3 8 3Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                IPhone de Juan
+              </td>
+              <td class="text-end pe-3">
+                <button type="button"
+                        class="bg-red-500 text-white hover:bg-red-700 px-2 py-1 rounded-md"
+                        (click)="abrirModal('IPhone de Juan')">
+                  Cerrar sesión
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="ps-3 py-3 flex items-center gap-2">
+                  <svg class="w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 21L12 17" stroke="#200E32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <rect x="3" y="4" width="18" height="13" rx="1" stroke="#200E32" stroke-width="2" stroke-linecap="round"></rect> <path d="M9 21H15" stroke="#200E32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                Mac Oficina
+              </td>
+              <td class="text-end pe-3">
+                <button type="button"
+                        class="bg-red-500 text-white hover:bg-red-700 px-2 py-1 rounded-md"
+                        (click)="abrirModal('Mac Oficina')">
+                  Cerrar sesión
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ✅ Modal de Confirmación -->
+        <div *ngIf="mostrarModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6">
+            <h2 class="text-xl font-semibold mb-4">¿Cerrar sesión?</h2>
+            <p class="mb-6 text-gray-700">
+              ¿Estás seguro de que deseas cerrar la sesión del dispositivo <strong>{{ dispositivoSeleccionado }}</strong>?
+            </p>
+            <div class="flex justify-end gap-3">
+              <button type="button"
+                      class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-md"
+                      (click)="cancelarCerrarSesion()">
+                Cancelar
+              </button>
+              <button type="button"
+                      class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
+                      (click)="confirmarCerrarSesion()">
+                Cerrar sesión
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="activo == 'seguridad'">
+        <table class="table-auto w-full mt-4">
+          <thead>
+            <tr class="border-b-2 border-black">
+              <th class="text-start text-lg" style="width: 60%;">Seguridad cuenta</th>
+              <th style="width: 40%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">
+                <p>Autenticación en dos pasos</p>
+                <span class="text-sm text-gray-500">Añade una capa extra de seguridad</span>
+              </td>
+              <td class="text-end pe-3">
+                <button type="button" class="border border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white px-2 py-1 rounded-md">Activar</button>
+              </td>
+            </tr>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">
+                <p>Cambiar Contraseña</p>
+                <span class="text-sm text-gray-500">Última actualización hace 3 meses</span>
+              </td>
+              <td class="text-end pe-3">
+                <button type="button" class="border border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white px-2 py-1 rounded-md">Cambiar</button>
+              </td>
+            </tr>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">
+                <p>Código de recuperación</p>
+                <span class="text-sm text-gray-500">Recibe códigos de seguridad y úsalos cuando no puedas acceder a tu teléfono o correo electrónico</span>
+              </td>
+              <td class="text-end pe-3">
+                <button type="button" class="border border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white px-2 py-1 rounded-md">Ver</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="activo == 'ayuda'">
+        <table class="table-auto w-full mt-4">
+          <thead>
+            <tr class="border-b-2 border-black">
+              <th class="text-start text-lg" style="width: 60%;">Centro de ayuda</th>
+              <th style="width: 40%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">
+                <p>Preguntas frecuentes</p>
+                <span class="text-sm text-gray-500">Encuentra respuestas a las preguntas más comunes</span>
+              </td>
+              <td class="text-end pe-3">
+                <button type="button" class="border border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white px-2 py-1 rounded-md">Ver FAQ</button>
+              </td>
+            </tr>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">
+                <p>Contactar/Soporte técnico</p>
+                <span class="text-sm text-gray-500">Obtén ayuda personalizada de nuestro equipo</span>
+              </td>
+              <td class="text-end pe-3">
+                <button type="button" class="border border-green-500 text-green-600 hover:bg-green-500 hover:text-white px-2 py-1 rounded-md">Contactar</button>
+              </td>
+            </tr>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">
+                <p>Guías de usuario</p>
+                <span class="text-sm text-gray-500">Tutoriales paso a paso para usar Wolke</span>
+              </td>
+              <td class="text-end pe-3">
+                <button type="button" class="border border-sky-600 text-sky-600 hover:bg-sky-600 hover:text-white px-2 py-1 rounded-md">Ver guías</button>
+              </td>
+            </tr>
+            <tr class="border-b-2 border-slate-400">
+              <td class="ps-3 py-3">
+                <p>Reportar problemas</p>
+                <span class="text-sm text-gray-500">Informa sobre cualquier error o sugerencia</span>
+              </td>
+              <td class="text-end pe-3">
+                <button type="button" class="border border-gray-500 text-gray-600 hover:bg-gray-500 hover:text-white px-2 py-1 rounded-md">Reportar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <app-configuracion-ayuda></app-configuracion-ayuda> -->
+      </div>
+    </div>
+  </div>
+</div>

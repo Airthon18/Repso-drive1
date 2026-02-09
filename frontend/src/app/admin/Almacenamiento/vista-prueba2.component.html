@@ -1,0 +1,438 @@
+	<!-- Main Content -->
+	<main class="flex-1 px-4 md:px-8 pt-4 md:pt-8">
+		<h2 class="font-semibold text-2xl md:text-3xl mb-4 md:mb-6">Gestión de Almacenamiento</h2>
+
+    <!-- Notificación -->
+    <div *ngIf="notification"
+        class="fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 text-white"
+        [ngClass]="{
+          'bg-green-500': notification.type === 'success',
+          'bg-red-500': notification.type === 'error',
+          'bg-blue-500': notification.type === 'info'
+        }">
+      {{ notification.message }}
+    </div>
+
+		<!-- Resumen tarjetas -->
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-6">
+			<div class="bg-white rounded-xl shadow p-4 md:p-6">
+				<div class="text-base text-gray-600 mb-1">Espacio Total</div>
+				<div class="flex items-center gap-2">
+					<span class="font-semibold text-lg">5 TB</span>
+				</div>
+				<div class="mt-2 bg-blue-100 rounded h-2 w-full">
+					<div class="bg-blue-600 h-2 rounded" style="width:65%"></div>
+				</div>
+				<div class="text-sm text-gray-400 mt-1">3.25 TB usados (65%)</div>
+			</div>
+
+			<div class="bg-white rounded-xl shadow p-4 md:p-6">
+				<div class="text-base text-gray-600 mb-1">Espacio disponible</div>
+				<div class="font-semibold text-lg text-green-500">1.75 TB</div>
+				<div class="mt-2 bg-blue-100 rounded h-2 w-full">
+					<div class="bg-green-500 h-2 rounded" style="width:35%"></div>
+				</div>
+				<div class="text-sm text-gray-400 mt-1">35% libre</div>
+			</div>
+
+			<div class="bg-white rounded-xl shadow p-4 md:p-6">
+				<div class="text-base text-gray-600 mb-1">Archivos</div>
+				<div class="font-semibold text-lg text-yellow-500">12,458</div>
+				<div class="mt-2 bg-blue-100 rounded h-2 w-full">
+					<div class="bg-yellow-500 h-2 rounded" style="width:80%"></div>
+				</div>
+				<div class="text-sm text-gray-400 mt-1">9,856 archivos personales</div>
+			</div>
+
+			<div class="bg-white rounded-xl shadow p-4 md:p-6">
+				<div class="text-base text-gray-600 mb-1">Compartidos</div>
+				<div class="font-semibold text-lg text-purple-600">2,492</div>
+				<div class="mt-2 bg-blue-100 rounded h-2 w-full">
+					<div class="bg-purple-600 h-2 rounded" style="width:20%"></div>
+				</div>
+				<div class="text-sm text-gray-400 mt-1">20% del espacio total</div>
+			</div>
+		</div>
+
+		<!-- Distribución por tipo de archivo -->
+		<div class="bg-white rounded-2xl shadow p-4 md:p-6 mb-6 md:mb-8">
+			<div class="text-base md:text-lg font-medium mb-4 md:mb-6">Distribución por tipo de archivo</div>
+			<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-12 justify-center">
+				<!-- Documentos -->
+				<div class="flex flex-col items-center">
+					<div class="bg-blue-100 rounded-xl p-3 mb-3 shadow transform transition-transform duration-300 hover:scale-110 cursor-pointer">
+						<svg width="36" height="36" fill="none" viewBox="0 0 24 24"><path fill="#2563eb" d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.828A2 2 0 0 0 19.414 7.414l-4.828-4.828A2 2 0 0 0 12.172 2H6zm6 1.414L18.586 8H14a2 2 0 0 1-2-2V3.414z"/></svg>
+					</div>
+					<div class="text-base">Documentos</div>
+					<div class="text-sm text-gray-400">1.2 TB (24%)</div>
+				</div>
+				<!-- Videos -->
+				<div class="flex flex-col items-center">
+					<div class="bg-red-100 rounded-xl p-3 mb-3 shadow transform transition-transform duration-300 hover:scale-110 cursor-pointer">
+						<svg width="36" height="36" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#fca5a5"/><path fill="#e53935" d="M9 8v8l7-4-7-4z"/></svg>
+					</div>
+					<div class="text-base">Videos</div>
+					<div class="text-sm text-gray-400">1.8 TB (36%)</div>
+				</div>
+				<!-- Imágenes -->
+				<div class="flex flex-col items-center">
+					<div class="bg-green-100 rounded-xl p-3 mb-3 shadow transform transition-transform duration-300 hover:scale-110 cursor-pointer">
+						<svg width="36" height="36" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#bbf7d0"/><circle cx="8" cy="8" r="2" fill="#22c55e"/><path fill="#22c55e" d="M4 20l4-4 4 4 4-4 4 4V4H4v16z"/></svg>
+					</div>
+					<div class="text-base">Imágenes</div>
+					<div class="text-sm text-gray-400">750 GB (15%)</div>
+				</div>
+				<!-- Audio -->
+				<div class="flex flex-col items-center">
+					<div class="bg-yellow-100 rounded-xl p-3 mb-3 shadow transform transition-transform duration-300 hover:scale-110 cursor-pointer">
+						<svg width="36" height="36" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#fef9c3"/><path fill="#fbbf24" d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+					</div>
+					<div class="text-base">Audio</div>
+					<div class="text-sm text-gray-400">320 GB (6%)</div>
+				</div>
+				<!-- Otros -->
+				<div class="flex flex-col items-center">
+					<div class="bg-purple-100 rounded-xl p-3 mb-3 shadow transform transition-transform duration-300 hover:scale-110 cursor-pointer">
+						<svg width="36" height="36" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#ede9fe"/><path fill="#7c3aed" d="M6 4h12v16H6V4zm2 2v12h8V6H8z"/></svg>
+					</div>
+					<div class="text-base">Otros</div>
+					<div class="text-sm text-gray-400">180 GB (4%)</div>
+				</div>
+			</div>
+		</div>
+			<!-- Archivos recientes -->
+		<div class="bg-white rounded-2xl shadow p-0 mb-6 md:mb-8">
+			<div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 md:px-6">
+				<div class="text-base md:text-lg font-medium mb-2 sm:mb-0">Archivos Recientes</div>
+				<a href="#" class="text-blue-600 font-medium hover:underline">Ver todos</a>
+			</div>
+
+			<!-- Tabla responsive -->
+			<div class="overflow-x-auto">
+				<div class="overflow-y-auto max-h-[340px] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+					<table class="min-w-full text-sm md:text-base font-[Poppins]">
+						<thead>
+							<tr class="bg-gray-100 text-gray-800">
+								<th class="py-3 px-2 md:px-4 text-left font-semibold">Nombre</th>
+                <th class="py-3 px-2 md:px-4 text-left font-semibold">Usuario</th>
+								<th class="py-3 px-2 md:px-4 text-left font-semibold hidden sm:table-cell">Tipo</th>
+								<th class="py-3 px-2 md:px-4 text-left font-semibold">Tamaño</th>
+								<th class="py-3 px-2 md:px-4 text-left font-semibold hidden md:table-cell">Última modificación</th>
+								<th class="py-3 px-2 md:px-4 text-left font-semibold">Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+              <tr *ngFor="let file of files" class="border-b hover:bg-gray-50">
+                <td class="py-3">
+                  <div class="flex items-center gap-2">
+                    <span [ngClass]="getColorClasses(file.color).bg"
+                          class="p-2 rounded-full text-xl">
+                      {{ file.icon }}
+                    </span>
+                    <span>
+                      <input *ngIf="editingFileId === file.id"
+                            type="text"
+                            [(ngModel)]="newFileName"
+                            (blur)="saveEdit(file.id)"
+                            (keydown)="onKeyPress($event, file.id)"
+                            class="border border-blue-300 rounded px-2 py-1 text-sm"
+                            autofocus />
+                      <ng-container *ngIf="editingFileId !== file.id">
+                        <span class="font-semibold block">{{ file.name }}</span>
+                        <span class="text-xs text-gray-400 block">{{ file.type }}</span>
+                      </ng-container>
+                    </span>
+                  </div>
+                </td>
+                <td class="py-3"></td>
+                <td class="py-3">
+                  <span [ngClass]="getColorClasses(file.color).badge"
+                        class="px-2 py-1 rounded text-xs font-semibold">
+                    {{ file.extension }}
+                  </span>
+                </td>
+                <td class="py-3">{{ file.size }}</td>
+                <td class="py-3">{{ file.lastModified }}</td>
+                <td class="py-3">
+                  <div class="flex gap-2">
+                    <button (click)="handleEdit(file)"
+                            class="bg-blue-500 hover:bg-blue-600 text-white rounded p-2 transition"
+                            title="Editar">
+                      <span class="material-icons text-sm">edit</span>
+                    </button>
+
+                    <button (click)="handleDownload(file)"
+                            class="bg-green-500 hover:bg-green-600 text-white rounded p-2 transition"
+                            title="Descargar">
+                      <span class="material-icons text-sm">download</span>
+                    </button>
+
+                    <button (click)="handleDelete(file)"
+                            class="bg-red-500 hover:bg-red-600 text-white rounded p-2 transition"
+                            title="Eliminar">
+                      <span class="material-icons text-sm">delete</span>
+                    </button>
+
+                    <button (click)="handleShare(file)"
+                            class="bg-yellow-400 hover:bg-yellow-500 text-white rounded p-2 transition"
+                            title="Compartir">
+                      <span class="material-icons text-sm">share</span>
+                    </button>
+
+                    <button (click)="handleFavorite(file)"
+                            class="bg-orange-500 hover:bg-orange-600 text-white rounded p-2 transition"
+                            title="Favorito">
+                      <span class="material-icons text-sm">star</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+							<!-- Fila 1 -->
+							<tr class="hover:bg-blue-50 border-b border-gray-200">
+								<td class="py-2 px-2 md:px-4">
+									<div class="flex items-center gap-2">
+										<svg class="w-6 h-6 md:w-8 md:h-8"><!-- ...existing icon code... --></svg>
+										<div class="flex flex-col">
+											<span class="text-sm md:text-base">Informe Anual 2024.pdf</span>
+											<span class="text-xs md:text-sm text-gray-400 sm:hidden">PDF</span>
+										</div>
+									</div>
+								</td>
+                <td class="py-2 px-2 md:px-4">Marta</td>
+								<td class="py-2 px-2 md:px-4 hidden sm:table-cell">
+									<span class="bg-blue-100 text-blue-500 rounded px-2 py-1 text-sm md:text-base">PDF</span>
+								</td>
+								<td class="py-2 px-2 md:px-4 text-sm md:text-base">25 MB</td>
+								<td class="py-2 px-2 md:px-4 hidden md:table-cell">2 días atrás</td>
+								<td class="py-2 px-2 md:px-4">
+									<div class="flex gap-1 md:gap-2">
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-blue-500 flex items-center justify-center hover:scale-110">
+											<!-- Editar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M4 17.25V21h3.75l11.06-11.06-3.75-3.75L4 17.25zm14.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-green-500 flex items-center justify-center hover:scale-110">
+											<!-- Descargar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M5 20h14v-2H5v2zm7-18v12.17l4.59-4.58L18 11l-6 6-6-6 1.41-1.41L12 14.17V2h2z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-red-500 flex items-center justify-center hover:scale-110">
+											<!-- Eliminar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zm3.46-9.12l1.42-1.42L12 10.59l1.12-1.13 1.42 1.42L13.41 12l1.13 1.12-1.42 1.42L12 13.41l-1.12 1.13-1.42-1.42L10.59 12l-1.13-1.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-yellow-300 flex items-center justify-center hover:scale-110">
+											<!-- Compartir -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a2.5 2.5 0 0 0 0-1.4l7.05-4.11A2.5 2.5 0 1 0 15.5 5a2.5 2.5 0 0 0 2.5 2.5c0 .23-.03.45-.08.67l-7.05 4.11a2.5 2.5 0 1 0 0 3.44l7.05 4.11c.05-.22.08-.44.08-.67a2.5 2.5 0 1 0-2.5-2.5z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-orange-400 flex items-center justify-center hover:scale-110">
+											<!-- Reemplazar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.1-.9 2-2 2h-1v2h1c2.21 0 4-1.79 4-4 0-4.42-3.58-8-8-8zm-6 8c0-1.1.9-2 2-2h1V8H8c-2.21 0-4 1.79-4 4 0 4.42 3.58 8 8 8v3l4-4-4-4v3c-3.31 0-6-2.69-6-6z"/></svg>
+										</span>
+									</div>
+								</td>
+							</tr>
+							<!-- Fila 2 -->
+							<tr class="hover:bg-blue-50 border-b border-gray-200">
+								<td class="py-2 px-2 md:px-4">
+									<div class="flex items-center gap-2">
+										<svg class="w-6 h-6 md:w-8 md:h-8"><!-- ...existing icon code... --></svg>
+										<div class="flex flex-col">
+											<span class="text-sm md:text-base">Foto Portada.png</span>
+											<span class="text-xs md:text-sm text-gray-400 sm:hidden">Imagen</span>
+										</div>
+									</div>
+								</td>
+                <td class="py-2 px-2 md:px-4">Marta</td>
+								<td class="py-2 px-2 md:px-4 hidden sm:table-cell">
+									<span class="bg-green-100 text-green-500 rounded px-2 py-1 text-sm md:text-base">PNG</span>
+								</td>
+								<td class="py-2 px-2 md:px-4 text-sm md:text-base">8.5 MB</td>
+								<td class="py-2 px-2 md:px-4 hidden md:table-cell">3 días atrás</td>
+								<td class="py-2 px-2 md:px-4">
+									<div class="flex gap-1 md:gap-2">
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-blue-500 flex items-center justify-center hover:scale-110">
+											<!-- Editar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M4 17.25V21h3.75l11.06-11.06-3.75-3.75L4 17.25zm14.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-green-500 flex items-center justify-center hover:scale-110">
+											<!-- Descargar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M5 20h14v-2H5v2zm7-18v12.17l4.59-4.58L18 11l-6 6-6-6 1.41-1.41L12 14.17V2h2z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-red-500 flex items-center justify-center hover:scale-110">
+											<!-- Eliminar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zm3.46-9.12l1.42-1.42L12 10.59l1.12-1.13 1.42 1.42L13.41 12l1.13 1.12-1.42 1.42L12 13.41l-1.12 1.13-1.42-1.42L10.59 12l-1.13-1.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-yellow-300 flex items-center justify-center hover:scale-110">
+											<!-- Compartir -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a2.5 2.5 0 0 0 0-1.4l7.05-4.11A2.5 2.5 0 1 0 15.5 5a2.5 2.5 0 0 0 2.5 2.5c0 .23-.03.45-.08.67l-7.05 4.11a2.5 2.5 0 1 0 0 3.44l7.05 4.11c.05-.22.08-.44.08-.67a2.5 2.5 0 1 0-2.5-2.5z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-orange-400 flex items-center justify-center hover:scale-110">
+											<!-- Reemplazar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.1-.9 2-2 2h-1v2h1c2.21 0 4-1.79 4-4 0-4.42-3.58-8-8-8zm-6 8c0-1.1.9-2 2-2h1V8H8c-2.21 0-4 1.79-4 4 0 4.42 3.58 8 8 8v3l4-4-4-4v3c-3.31 0-6-2.69-6-6z"/></svg>
+										</span>
+									</div>
+								</td>
+							</tr>
+							<!-- Fila 3 -->
+							<tr class="hover:bg-blue-50 border-b border-gray-200">
+								<td class="py-2 px-2 md:px-4">
+									<div class="flex items-center gap-2">
+										<svg class="w-6 h-6 md:w-8 md:h-8"><!-- ...existing icon code... --></svg>
+										<div class="flex flex-col">
+											<span class="text-sm md:text-base">Presentación Producto.mp4</span>
+											<span class="text-xs md:text-sm text-gray-400 sm:hidden">Video</span>
+										</div>
+									</div>
+								</td>
+                <td class="py-2 px-2 md:px-4">Marta</td>
+								<td class="py-2 px-2 md:px-4 hidden sm:table-cell">
+									<span class="bg-red-100 text-red-500 rounded px-2 py-1 text-sm md:text-base">MP4</span>
+								</td>
+								<td class="py-2 px-2 md:px-4 text-sm md:text-base">1.2 GB</td>
+								<td class="py-2 px-2 md:px-4 hidden md:table-cell">5 días atrás</td>
+								<td class="py-2 px-2 md:px-4">
+									<div class="flex gap-1 md:gap-2">
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-blue-500 flex items-center justify-center hover:scale-110">
+											<!-- Editar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M4 17.25V21h3.75l11.06-11.06-3.75-3.75L4 17.25zm14.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-green-500 flex items-center justify-center hover:scale-110">
+											<!-- Descargar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M5 20h14v-2H5v2zm7-18v12.17l4.59-4.58L18 11l-6 6-6-6 1.41-1.41L12 14.17V2h2z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-red-500 flex items-center justify-center hover:scale-110">
+											<!-- Eliminar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zm3.46-9.12l1.42-1.42L12 10.59l1.12-1.13 1.42 1.42L13.41 12l1.13 1.12-1.42 1.42L12 13.41l-1.12 1.13-1.42-1.42L10.59 12l-1.13-1.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-yellow-300 flex items-center justify-center hover:scale-110">
+											<!-- Compartir -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a2.5 2.5 0 0 0 0-1.4l7.05-4.11A2.5 2.5 0 1 0 15.5 5a2.5 2.5 0 0 0 2.5 2.5c0 .23-.03.45-.08.67l-7.05 4.11a2.5 2.5 0 1 0 0 3.44l7.05 4.11c.05-.22.08-.44.08-.67a2.5 2.5 0 1 0-2.5-2.5z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-orange-400 flex items-center justify-center hover:scale-110">
+											<!-- Reemplazar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.1-.9 2-2 2h-1v2h1c2.21 0 4-1.79 4-4 0-4.42-3.58-8-8-8zm-6 8c0-1.1.9-2 2-2h1V8H8c-2.21 0-4 1.79-4 4 0 4.42 3.58 8 8 8v3l4-4-4-4v3c-3.31 0-6-2.69-6-6z"/></svg>
+										</span>
+									</div>
+								</td>
+							</tr>
+							<!-- Fila 4 -->
+							<tr class="hover:bg-blue-50 border-b border-gray-200">
+								<td class="py-2 px-2 md:px-4">
+									<div class="flex items-center gap-2">
+										<svg class="w-6 h-6 md:w-8 md:h-8"><!-- ...existing icon code... --></svg>
+										<div class="flex flex-col">
+											<span class="text-sm md:text-base">Jingle Publicitario.mp3</span>
+											<span class="text-xs md:text-sm text-gray-400 sm:hidden">Audio</span>
+										</div>
+									</div>
+								</td>
+                <td class="py-2 px-2 md:px-4">Marta</td>
+								<td class="py-2 px-2 md:px-4 hidden sm:table-cell">
+									<span class="bg-yellow-100 text-yellow-600 rounded px-2 py-1 text-sm md:text-base">MP3</span>
+								</td>
+								<td class="py-2 px-2 md:px-4 text-sm md:text-base">3.2 MB</td>
+								<td class="py-2 px-2 md:px-4 hidden md:table-cell">5 meses atrás</td>
+								<td class="py-2 px-2 md:px-4">
+									<div class="flex gap-1 md:gap-2">
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-blue-500 flex items-center justify-center hover:scale-110">
+											<!-- Editar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M4 17.25V21h3.75l11.06-11.06-3.75-3.75L4 17.25zm14.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-green-500 flex items-center justify-center hover:scale-110">
+											<!-- Descargar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M5 20h14v-2H5v2zm7-18v12.17l4.59-4.58L18 11l-6 6-6-6 1.41-1.41L12 14.17V2h2z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-red-500 flex items-center justify-center hover:scale-110">
+											<!-- Eliminar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zm3.46-9.12l1.42-1.42L12 10.59l1.12-1.13 1.42 1.42L13.41 12l1.13 1.12-1.42 1.42L12 13.41l-1.12 1.13-1.42-1.42L10.59 12l-1.13-1.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-yellow-300 flex items-center justify-center hover:scale-110">
+											<!-- Compartir -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a2.5 2.5 0 0 0 0-1.4l7.05-4.11A2.5 2.5 0 1 0 15.5 5a2.5 2.5 0 0 0 2.5 2.5c0 .23-.03.45-.08.67l-7.05 4.11a2.5 2.5 0 1 0 0 3.44l7.05 4.11c.05-.22.08-.44.08-.67a2.5 2.5 0 1 0-2.5-2.5z"/></svg>
+										</span>
+										<span class="w-8 h-8 md:w-10 md:h-10 rounded bg-orange-400 flex items-center justify-center hover:scale-110">
+											<!-- Reemplazar -->
+											<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="#fff" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.1-.9 2-2 2h-1v2h1c2.21 0 4-1.79 4-4 0-4.42-3.58-8-8-8zm-6 8c0-1.1.9-2 2-2h1V8H8c-2.21 0-4 1.79-4 4 0 4.42 3.58 8 8 8v3l4-4-4-4v3c-3.31 0-6-2.69-6-6z"/></svg>
+										</span>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</main>
+
+
+  <!-- Modal de Compartir -->
+  <div *ngIf="showShareModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+      <!-- Header del Modal -->
+      <div class="flex justify-between items-center p-6 border-b">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">Compartir archivo</h3>
+          <p class="text-sm text-gray-500 mt-1">{{ fileToShare?.name }}</p>
+        </div>
+        <button (click)="closeShareModal()" class="text-gray-400 hover:text-gray-600">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+
+      <!-- Buscador -->
+      <div class="p-6">
+        <div class="relative">
+          <span class="material-icons absolute left-3 top-3 text-gray-400">search</span>
+          <input
+            type="text"
+            [(ngModel)]="searchQuery"
+            placeholder="Buscar por nombre o email..."
+            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Usuarios seleccionados -->
+        <div *ngIf="selectedUsers.length > 0" class="mt-4 flex flex-wrap gap-2">
+          <div *ngFor="let user of selectedUsers"
+               class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm flex items-center gap-2">
+            <span>{{ user.avatar }}</span>
+            <span>{{ user.name }}</span>
+            <button (click)="toggleUserSelection(user)" class="hover:text-blue-900">
+              <span class="material-icons text-sm">close</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Lista de usuarios -->
+        <div class="mt-4 max-h-80 overflow-y-auto border border-gray-200 rounded-lg">
+          <div *ngFor="let user of filteredUsers"
+               (click)="toggleUserSelection(user)"
+               class="flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
+               [ngClass]="{'bg-blue-50': isUserSelected(user)}">
+            <div class="text-2xl">{{ user.avatar }}</div>
+            <div class="flex-1">
+              <div class="font-medium text-gray-800">{{ user.name }}</div>
+              <div class="text-sm text-gray-500">{{ user.email }}</div>
+            </div>
+            <div *ngIf="isUserSelected(user)" class="text-blue-500">
+              <span class="material-icons">check_circle</span>
+            </div>
+          </div>
+          <div *ngIf="filteredUsers.length === 0" class="p-8 text-center text-gray-400">
+            <span class="material-icons text-4xl mb-2">search_off</span>
+            <p>No se encontraron usuarios</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer del Modal -->
+      <div class="flex justify-end gap-3 p-6 border-t bg-gray-50">
+        <button (click)="closeShareModal()"
+                class="px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-lg transition">
+          Cancelar
+        </button>
+        <button (click)="confirmShare()"
+                class="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-lg transition flex items-center gap-2">
+          <span class="material-icons text-sm">share</span>
+          Compartir
+        </button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,28 @@
+@import "@fontsource/poppins/400.css"; /* Peso 300 */
+
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+import "@fontsource/poppins"; Peso 400 por defecto
+
+Peso específico:
+100 -> Thin (Muy delgada)
+200 -> Extra Light (Delgada)
+300 -> Light (Ligera)
+400 -> Regular (Normal)
+500 -> Medium (Media)
+500 -> Medium (Media)
+600 -> Semi Bold (Semi Negrita)
+700 -> Bold (Negrita)
+800 -> Extra Bold (Muy negrita)
+900 -> Black (Negra)
+*/
+
+body {
+  font-family: "Outfit", "Poppins", sans-serif;
+  font-size: 16px;
+}
+

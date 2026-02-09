@@ -1,0 +1,527 @@
+<div class="m-8">
+  <h2 class="font-semibold text-3xl">Mi Drive</h2>
+  <p class="text-gray-500">Gestiona todos tus archivos y carpetas</p>
+
+  <div class="mt-6 mb-14 grid lg:grid-cols-4 md:grid-cols-3 xl:gap-20 md:gap-6 items-center">
+    <button type="button" (click)="navegarACrearCarpeta()" (contextmenu)="abrirModalContextual($event, {nombre: 'Crear carpeta', tipo: 'crear-carpeta'})" type="button" class="bg-white py-4 rounded-lg shadow-xl justify-items-center transition hover:scale-105 ease-out duration-100">
+      <div class="rounded-full bg-cyan-200 p-3">
+        <svg class="w-10 h-10 stroke-2" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><polygon points="54 48 10 48 8 22 56 22 54 48"></polygon><polyline points="12 22 12 12 22 12 26 16 52 16 52 22"></polyline></g></svg>
+      </div>
+      <br>
+      <h4 class="font-semibold">Crear carpeta</h4>
+      <span class="text-gray-400">Organiza todos tus archivos</span>
+    </button>
+    <button type="button" (click)="abrirModalSubirArchivos()" class="bg-white py-4 rounded-lg shadow-xl justify-items-center transition hover:scale-105 ease-out duration-100">
+      <div class="rounded-full bg-cyan-200 p-3">
+        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15 21H9C6.17157 21 4.75736 21 3.87868 20.1213C3 19.2426 3 17.8284 3 15M21 15C21 17.8284 21 19.2426 20.1213 20.1213C19.8215 20.4211 19.4594 20.6186 19 20.7487" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 16V3M12 3L16 7.375M12 3L8 7.375" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+      </div>
+      <br>
+      <h4 class="font-semibold">Subir archivos</h4>
+      <span class="text-gray-400">O arrastra y suelta aquì</span>
+    </button>
+    <button type="button" class="bg-white py-4 rounded-lg shadow-xl justify-items-center transition hover:scale-105 ease-out duration-100" (click)="irACompartidos()">
+      <div class="rounded-full bg-cyan-200 p-3">
+        <svg class="w-10 h-10" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="var(--ci-primary-color, #000000)" d="M404,344a75.9,75.9,0,0,0-60.208,29.7L179.869,280.664a75.693,75.693,0,0,0,0-49.328L343.792,138.3a75.937,75.937,0,1,0-13.776-28.976L163.3,203.946a76,76,0,1,0,0,104.108l166.717,94.623A75.991,75.991,0,1,0,404,344Zm0-296a44,44,0,1,1-44,44A44.049,44.049,0,0,1,404,48ZM108,300a44,44,0,1,1,44-44A44.049,44.049,0,0,1,108,300ZM404,464a44,44,0,1,1,44-44A44.049,44.049,0,0,1,404,464Z" class="ci-primary"></path> </g></svg>
+      </div>
+      <br>
+      <h4 class="font-semibold">Compartir</h4>
+      <span class="text-gray-400">Comparte con otros</span>
+    </button>
+    <button
+      type="button"
+      class="bg-white py-4 rounded-lg shadow-xl justify-items-center transition hover:scale-105 ease-out duration-100"
+      (click)="onTransfer()">
+      <div class="rounded-full bg-cyan-200 p-3">
+        <svg class="w-10 h-10" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="none" stroke="#000000" stroke-width="2" d="M2,7 L20,7 M16,2 L21,7 L16,12 M22,17 L4,17 M8,12 L3,17 L8,22"></path> </g></svg>
+      </div>
+      <br>
+      <h4 class="font-semibold">Transferir</h4>
+      <span class="text-gray-400">Desde otro servicio</span>
+    </button>
+  </div>
+
+  <div class="mt-3">
+    <!-- Tabs -->
+    <div class="flex items-center">
+      <a
+      (click)="cambiarTab('recientes')"
+      class="px-2 py-1 flex items-center bg-gray-200 cursor-pointer"
+      [ngClass]="{
+        'bg-white border-b-4 border-cyan-300 rounded-t-lg': activo === 'recientes',
+        'hover:bg-slate-50 hover:text-gray-600 rounded-tl-lg': activo !== 'recientes'
+        }"> <!-- focus/checked:border-b-4 -->
+        <svg class="w-4 h-4 me-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 7V12L14.5 13.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </svg>
+        Recientes
+      </a>
+      <a
+      (click)="cambiarTab('destacados')"
+      class="px-2 py-1 flex items-center bg-gray-200 cursor-pointer"
+      [ngClass]="{
+        'bg-white border-b-4 border-yellow-300 rounded-t-lg': activo === 'destacados',
+        ' hover:bg-slate-50 hover:text-gray-600 rounded-tr-lg': activo !== 'destacados'
+      }">
+        <svg class="w-4 h-4 me-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+        Destacados
+      </a>
+    </div>
+    <!-- Contenidos -->
+    <div class="bg-white p-4 rounded-b-md rounded-tr-md">
+      <!-- contenido Tab1 -->
+      <div *ngIf="activo === 'recientes'" class="px-2">
+          <div class="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 xl:gap-5 md:gap-3 items-center">
+            <button
+              type="button"
+              (click)="abrirCarpeta('Documentos trabajo')"
+              (contextmenu)="abrirModalContextual($event, {nombre: 'Documentos trabajo', tipo: 'carpeta'})"
+              class="bg-amber-200 transition hover:scale-105 ease-out duration-100 p-3 rounded-lg shadow-md">
+
+              <div class="grid justify-items-end">
+                <label class="inline-block cursor-pointer">
+                  <input type="checkbox" class="peer hidden">
+                  <svg
+                    class="w-6 h-6 transition fill-white stroke-black duration-50 peer-checked:fill-yellow-200"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z" stroke="#464455" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                  </svg>
+                </label>
+              </div>
+
+              <div class="justify-items-center">
+                <div class="rounded-full bg-amber-50 p-3">
+                  <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="24" height="24" fill="white"></rect> <path d="M21 9V7C21 6.44772 20.5523 6 20 6H10L9 4H4L3.21115 5.57771C3.07229 5.85542 3 6.16165 3 6.47214V9" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M3.91321 20H20.0868C20.604 20 21.0359 19.6056 21.0827 19.0905L21.9009 10.0905C21.9541 9.50492 21.493 9 20.905 9H3.09503C2.507 9 2.0459 9.50492 2.09914 10.0905L2.91732 19.0905C2.96415 19.6056 3.39601 20 3.91321 20Z" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </div>
+                <br>
+                <h4 class="font-semibold">Documentos trabajo</h4>
+                <p>12 elementos . Hace 2 horas</p>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              (contextmenu)="abrirModalContextual($event, {nombre: 'Vacaciones Puno.pnj', tipo: 'archivo'})"
+              class="bg-red-200 transition hover:scale-105 ease-out duration-100 p-3 rounded-lg shadow-md">
+              <div class=" grid justify-items-end">
+                <label class="inline-block cursor-pointer">
+                  <input type="checkbox" class="peer hidden">
+                  <svg
+                    class="w-6 h-6 transition fill-white stroke-black duration-50 peer-checked:fill-yellow-200"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z" stroke="#464455" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                  </svg>
+                </label>
+              </div>
+              <div class="justify-items-center">
+                <div class="rounded-full bg-red-50 p-3">
+                  <svg class="w-10 h-10" viewBox="-2.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="icomoon-ignore"> </g> <path d="M0 3.2v25.6h26.667v-25.6h-26.667zM1.067 19.307l7.467-7.84 7.413 7.413 3.733-3.2 5.547 5.653h-24.16v-2.027zM25.6 27.733h-24.533v-5.333h24.533v5.333zM25.6 20.213l-5.813-6.027-3.733 3.2-7.52-7.467-7.467 7.84v-13.493h24.533v15.947z" fill="#000000"> </path> <path d="M19.733 11.733c1.493 0 2.667-1.173 2.667-2.667s-1.173-2.667-2.667-2.667c-1.493 0-2.667 1.173-2.667 2.667s1.173 2.667 2.667 2.667zM19.733 7.467c0.907 0 1.6 0.693 1.6 1.6s-0.693 1.6-1.6 1.6c-0.907 0-1.6-0.693-1.6-1.6s0.693-1.6 1.6-1.6z" fill="#000000"> </path> </g></svg>
+                </div>
+                <br>
+                <h4 class="font-semibold">Vacaciones Puno.pnj</h4>
+                <p>24 MB . Hace 1 dìa</p>
+              </div>
+            </button>
+
+            <button type="button" class="bg-cyan-200 transition hover:scale-105 ease-out duration-100 p-3 rounded-lg shadow-md"
+              (contextmenu)="abrirModalContextual($event, {nombre: 'Presentacion.pdf', tipo: 'archivo'})">
+              <div class=" grid justify-items-end">
+                <label class="inline-block cursor-pointer">
+                  <input type="checkbox" class="peer hidden">
+                  <svg
+                    class="w-6 h-6 transition fill-white stroke-black duration-50 peer-checked:fill-yellow-200"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z" stroke="#464455" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                  </svg>
+                </label>
+              </div>
+              <div class="justify-items-center">
+                <div class="rounded-full bg-cyan-50 p-3">
+                  <svg class="w-10 h-10" fill="#000000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M47.987,21.938c-0.006-0.091-0.023-0.178-0.053-0.264c-0.011-0.032-0.019-0.063-0.033-0.094 c-0.048-0.104-0.109-0.202-0.193-0.285c-0.001-0.001-0.001-0.001-0.001-0.001L42,15.586V10c0-0.022-0.011-0.041-0.013-0.063 c-0.006-0.088-0.023-0.173-0.051-0.257c-0.011-0.032-0.019-0.063-0.034-0.094c-0.049-0.106-0.11-0.207-0.196-0.293l-9-9 c-0.086-0.086-0.187-0.148-0.294-0.197c-0.03-0.013-0.06-0.022-0.09-0.032c-0.086-0.03-0.174-0.047-0.264-0.053 C32.038,0.01,32.02,0,32,0H7C6.448,0,6,0.448,6,1v14.586l-5.707,5.707c0,0-0.001,0.001-0.002,0.002 c-0.084,0.084-0.144,0.182-0.192,0.285c-0.014,0.031-0.022,0.062-0.033,0.094c-0.03,0.086-0.048,0.173-0.053,0.264 C0.011,21.96,0,21.978,0,22v19c0,0.552,0.448,1,1,1h5v5c0,0.552,0.448,1,1,1h34c0.552,0,1-0.448,1-1v-5h5c0.552,0,1-0.448,1-1V22 C48,21.978,47.989,21.96,47.987,21.938z M44.586,21H42v-2.586L44.586,21z M38.586,9H33V3.414L38.586,9z M8,2h23v8 c0,0.552,0.448,1,1,1h8v5v5H8v-5V2z M6,18.414V21H3.414L6,18.414z M40,46H8v-4h32V46z M46,40H2V23h5h34h5V40z"></path> <path d="M18.254,26.72c-0.323-0.277-0.688-0.473-1.097-0.586c-0.408-0.113-0.805-0.17-1.19-0.17h-3.332V38h2.006v-4.828h1.428 c0.419,0,0.827-0.074,1.224-0.221c0.397-0.147,0.748-0.374,1.054-0.68c0.306-0.306,0.552-0.688,0.74-1.148 c0.187-0.459,0.281-0.994,0.281-1.606c0-0.68-0.105-1.247-0.315-1.7C18.843,27.364,18.577,26.998,18.254,26.72z M16.971,31.005 c-0.306,0.334-0.697,0.501-1.173,0.501h-1.156v-3.825h1.156c0.476,0,0.867,0.147,1.173,0.442c0.306,0.295,0.459,0.765,0.459,1.411 C17.43,30.18,17.277,30.67,16.971,31.005z"></path> <polygon points="30.723,38 32.78,38 32.78,32.832 35.857,32.832 35.857,31.081 32.764,31.081 32.764,27.8 36.112,27.8 36.112,25.964 30.723,25.964 "></polygon> <path d="M24.076,25.964H21.05V38h3.009c1.553,0,2.729-0.524,3.528-1.572c0.799-1.049,1.198-2.525,1.198-4.429 c0-1.904-0.399-3.386-1.198-4.446C26.788,26.494,25.618,25.964,24.076,25.964z M26.55,33.843c-0.13,0.528-0.315,0.967-0.552,1.318 c-0.238,0.351-0.521,0.615-0.85,0.79c-0.329,0.176-0.686,0.264-1.071,0.264h-0.969v-8.466h0.969c0.385,0,0.742,0.088,1.071,0.264 c0.329,0.175,0.612,0.439,0.85,0.79c0.238,0.351,0.422,0.793,0.552,1.326s0.196,1.156,0.196,1.87 C26.746,32.702,26.68,33.316,26.55,33.843z"></path> </g> </g> </g></svg>
+                </div>
+                <br>
+                <h4 class="font-semibold">Presentacion.pdf</h4>
+                <p>3MB - Hace 2 dìas</p>
+              </div>
+            </button>
+
+            <button type="button" class="bg-amber-200 transition hover:scale-105 ease-out duration-100 p-3 rounded-lg shadow-md"
+              (click)="abrirCarpeta('Fotos familia')"
+              (contextmenu)="abrirModalContextual($event, {nombre: 'Fotos familia', tipo: 'carpeta'})">
+              <div class=" grid justify-items-end">
+                <label class="inline-block cursor-pointer">
+                  <input type="checkbox" class="peer hidden">
+                  <svg
+                    class="w-6 h-6 transition fill-white stroke-black duration-50 peer-checked:fill-yellow-200"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z" stroke="#464455" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                  </svg>
+                </label>
+              </div>
+              <div class="justify-items-center">
+                <div class="rounded-full bg-amber-50 p-3">
+                  <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="24" height="24" fill="white"></rect> <path d="M21 9V7C21 6.44772 20.5523 6 20 6H10L9 4H4L3.21115 5.57771C3.07229 5.85542 3 6.16165 3 6.47214V9" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M3.91321 20H20.0868C20.604 20 21.0359 19.6056 21.0827 19.0905L21.9009 10.0905C21.9541 9.50492 21.493 9 20.905 9H3.09503C2.507 9 2.0459 9.50492 2.09914 10.0905L2.91732 19.0905C2.96415 19.6056 3.39601 20 3.91321 20Z" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </div>
+                <br>
+                <h4 class="font-semibold">Fotos familia</h4>
+                <p>45 elementos . Hace 1 semana</p>
+              </div>
+            </button>
+
+            <button type="button" class="bg-cyan-200 transition hover:scale-105 ease-out duration-100 p-3 rounded-lg shadow-md"
+              (contextmenu)="abrirModalContextual($event, {nombre: 'Contrato.docx', tipo: 'archivo'})">
+              <div class=" grid justify-items-end">
+                <label class="inline-block cursor-pointer">
+                  <input type="checkbox" class="peer hidden">
+                  <svg
+                    class="w-6 h-6 transition fill-white stroke-black duration-50 peer-checked:fill-yellow-200"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z" stroke="#464455" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                  </svg>
+                </label>
+              </div>
+              <div class="justify-items-center">
+                <div class="rounded-full bg-cyan-50 p-3">
+                  <svg class="w-10 h-10" fill="#000000" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M1706.235 1807.059H350.941V112.94h903.53v451.765h451.764v1242.353Zm-338.823-1670.74 315.443 315.447h-315.443V136.32Zm402.182 242.487L1440.372 49.58C1408.296 17.62 1365.717 0 1320.542 0H238v1920h1581.175V498.635c0-45.176-17.618-87.755-49.58-119.83ZM576.823 1242.353h790.589v-112.94H576.823v112.94Zm0-451.765h903.53V677.647h-903.53v112.941Zm0 677.647h451.765v-112.941H576.823v112.941Zm0-451.764h677.648V903.53H576.823v112.941Zm0-451.765h451.765V451.765H576.823v112.941Z" fill-rule="evenodd"></path> </g></svg>
+                </div>
+                <br>
+                <h4 class="font-semibold">Contrato.docx</h4>
+                <p>524KB . Hace 2 semanas</p>
+              </div>
+            </button>
+          </div>
+      </div>
+
+      <!-- contenido Tab2-->
+      <div *ngIf="activo === 'destacados'" class="px-2">
+        <div class="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 xl:gap-5 md:gap-3 items-center">
+          <button type="button" class="bg-amber-200 transition hover:scale-105 ease-out duration-100 p-3 rounded-lg shadow-md">
+            <div class="grid justify-items-end">
+              <label class="inline-block cursor-pointer">
+                <input type="checkbox" class="peer hidden">
+                <svg
+                  class="w-6 h-6 transition fill-white stroke-black duration-50 peer-checked:fill-yellow-200"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z" stroke="#464455" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </g>
+                </svg>
+              </label>
+            </div>
+            <div class="justify-items-center">
+              <div class="rounded-full bg-amber-50 p-3">
+                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="24" height="24" fill="white"></rect> <path d="M21 9V7C21 6.44772 20.5523 6 20 6H10L9 4H4L3.21115 5.57771C3.07229 5.85542 3 6.16165 3 6.47214V9" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M3.91321 20H20.0868C20.604 20 21.0359 19.6056 21.0827 19.0905L21.9009 10.0905C21.9541 9.50492 21.493 9 20.905 9H3.09503C2.507 9 2.0459 9.50492 2.09914 10.0905L2.91732 19.0905C2.96415 19.6056 3.39601 20 3.91321 20Z" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+              </div>
+              <br>
+              <h4 class="font-semibold">Documentos trabajo</h4>
+              <p>12 elementos . Hace 2 horas</p>
+            </div>
+          </button>
+
+          <button type="button" class="bg-amber-200 transition hover:scale-105 ease-out duration-100 p-3 rounded-lg shadow-md">
+            <div class="grid justify-items-end">
+              <label class="inline-block cursor-pointer">
+                <input type="checkbox" class="peer hidden">
+                <svg
+                  class="w-6 h-6 transition fill-white stroke-black duration-50 peer-checked:fill-yellow-200"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z" stroke="#464455" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </g>
+                </svg>
+              </label>
+            </div>
+            <div class="justify-items-center">
+              <div class="rounded-full bg-amber-50 p-3">
+                <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="24" height="24" fill="white"></rect> <path d="M21 9V7C21 6.44772 20.5523 6 20 6H10L9 4H4L3.21115 5.57771C3.07229 5.85542 3 6.16165 3 6.47214V9" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M3.91321 20H20.0868C20.604 20 21.0359 19.6056 21.0827 19.0905L21.9009 10.0905C21.9541 9.50492 21.493 9 20.905 9H3.09503C2.507 9 2.0459 9.50492 2.09914 10.0905L2.91732 19.0905C2.96415 19.6056 3.39601 20 3.91321 20Z" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+              </div>
+              <br>
+              <h4 class="font-semibold">Fotos familia</h4>
+              <p>45 elementos . Hace 1 semana</p>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <div class="bg-white rounded-xl shadow-sm p-3">
+    <h1 class="flex items-center text-lg" href="">
+      <svg class="w-4 h-4 me-2" fill="#000000" height="200px" width="200px" version="1.1" id="Artwork" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M250.9,130.8h139c6.8,0,12.3-5.5,12.3-12.3s-5.5-12.3-12.3-12.3h-139c-6.8,0-12.3,5.5-12.3,12.3S244.2,130.8,250.9,130.8z"></path> <circle cx="137.4" cy="118.6" r="15.8"></circle> <path d="M389.9,244h-139c-6.8,0-12.3,5.5-12.3,12.3s5.5,12.3,12.3,12.3h139c6.8,0,12.3-5.5,12.3-12.3S396.7,244,389.9,244z"></path> <circle cx="137.4" cy="256.2" r="15.8"></circle> <path d="M389.9,381.7h-139c-6.8,0-12.3,5.5-12.3,12.3s5.5,12.3,12.3,12.3h139c6.8,0,12.3-5.5,12.3-12.3S396.7,381.7,389.9,381.7z"></path> <circle cx="137.4" cy="393.9" r="15.8"></circle> <path d="M500.3,462.3V49.7c0-6.8-5.5-12.3-12.3-12.3H23.9c-6.8,0-12.2,5.5-12.2,12.3v412.5c0,6.8,5.5,12.3,12.2,12.3h464.2 C494.9,474.5,500.3,469,500.3,462.3z M36.2,199.7h439.7v113.2H36.2V199.7z M475.8,62v113.2H36.2V62H475.8z M36.2,450V337.3h439.7 V450H36.2z"></path> </g> </g></svg>
+      Almacenamiento utilizado
+    </h1>
+    <!-- Hacer componente -->
+    <div class="my-2 bg-blue-100 rounded h-2 w-full">
+      <div class="bg-green-400 h-2 rounded" style="width:32%"></div>
+    </div>
+    <div class="flex items-center justify-between text-gray-400">
+      <p>1.6GB de 5GB utilizados</p>
+      <p>32% usado</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Crear Carpeta -->
+<div
+  class="fixed inset-0 z-50 transition-opacity duration-300"
+  [class]="mostrarModalCrearCarpeta ? 'opacity-100 visible' : 'opacity-0 invisible'"
+  (click)="cerrarModalCrearCarpeta()">
+
+  <!-- Fondo oscuro -->
+  <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300"></div>
+
+  <!-- Contenido del modal -->
+  <div
+    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-lg p-6 w-96 transform transition-all duration-300"
+    [class]="mostrarModalCrearCarpeta ? 'scale-100 opacity-100' : 'scale-95 opacity-0'"
+    (click)="$event.stopPropagation()">
+
+    <!-- Título -->
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-bold text-gray-800">Crear Nueva Carpeta</h3>
+      <button
+        class="p-1 hover:bg-gray-100 rounded-full transition-colors"
+        (click)="cerrarModalCrearCarpeta()">
+        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Formulario -->
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Nombre de la carpeta</label>
+        <input
+          type="text"
+          [(ngModel)]="nombreCarpeta"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+          placeholder="Ingresa el nombre de la carpeta">
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="flex justify-end space-x-3 pt-4">
+        <button
+          (click)="cerrarModalCrearCarpeta()"
+          class="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
+          Cancelar
+        </button>
+        <button
+          (click)="crearCarpeta()"
+          [disabled]="!nombreCarpeta.trim()"
+          class="px-6 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors">
+          Crear Carpeta
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Subir Archivos -->
+<div
+  class="fixed inset-0 z-50 transition-opacity duration-300"
+  [class]="mostrarModalSubirArchivos ? 'opacity-100 visible' : 'opacity-0 invisible'"
+  (click)="cerrarModalSubirArchivos()">
+
+  <!-- Fondo oscuro -->
+  <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300"></div>
+
+  <!-- Contenido del modal -->
+  <div
+    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-lg p-6 w-96 transform transition-all duration-300"
+    [class]="mostrarModalSubirArchivos ? 'scale-100 opacity-100' : 'scale-95 opacity-0'"
+    (click)="$event.stopPropagation()">
+
+    <!-- Título -->
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-bold text-gray-800">Subir Archivos</h3>
+      <button
+        class="p-1 hover:bg-gray-100 rounded-full transition-colors"
+        (click)="cerrarModalSubirArchivos()">
+        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Área de arrastre -->
+    <div class="space-y-4">
+      <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-cyan-500 transition-colors">
+        <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 21H9C6.17157 21 4.75736 21 3.87868 20.1213C3 19.2426 3 17.8284 3 15M21 15C21 17.8284 21 19.2426 20.1213 20.1213C19.8215 20.4211 19.4594 20.6186 19 20.7487" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 16V3M12 3L16 7.375M12 3L8 7.375" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p class="text-gray-600 mb-2">Arrastra y suelta tus archivos aquí</p>
+        <p class="text-sm text-gray-500 mb-4">o</p>
+        <input
+          type="file"
+          multiple
+          (change)="onArchivosSeleccionados($event)"
+          class="hidden"
+          id="input-archivos">
+        <label
+          for="input-archivos"
+          class="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 cursor-pointer transition-colors">
+          Seleccionar Archivos
+        </label>
+      </div>
+
+      <!-- Lista de archivos seleccionados -->
+      <div *ngIf="archivosSeleccionados.length > 0" class="space-y-2">
+        <h4 class="text-sm font-medium text-gray-700">Archivos seleccionados:</h4>
+        <div class="max-h-32 overflow-y-auto space-y-1">
+          <div *ngFor="let archivo of archivosSeleccionados; let i = index" class="flex items-center justify-between p-2 bg-gray-50 rounded">
+            <div class="flex items-center space-x-2">
+              <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 2V8H20" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="text-sm text-gray-700">{{ archivo.name }}</span>
+            </div>
+            <button
+              (click)="eliminarArchivo(i)"
+              class="text-red-500 hover:text-red-700 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="flex justify-end space-x-3 pt-4">
+        <button
+          (click)="cerrarModalSubirArchivos()"
+          class="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
+          Cancelar
+        </button>
+        <button
+          (click)="subirArchivos()"
+          [disabled]="archivosSeleccionados.length === 0"
+          class="px-6 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors">
+          Subir Archivos
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Contextual (Menú con clic derecho) -->
+<div
+  class="fixed inset-0 z-50"
+  [style.display]="mostrarModalContextual ? 'block' : 'none'"
+  (click)="cerrarModalContextual()"
+  (contextmenu)="cerrarModalContextual()">
+
+  <!-- Fondo oscuro semi-transparente -->
+  <div class="absolute inset-0 bg-black bg-opacity-25"></div>
+
+  <!-- Contenido del menú contextual -->
+  <div
+    class="absolute bg-white rounded-xl shadow-xl py-2 min-w-[220px] border border-gray-100 overflow-hidden"
+    [style.left.px]="posicionModal.x"
+    [style.top.px]="posicionModal.y"
+    (click)="$event.stopPropagation()">
+
+    <!-- Información del elemento -->
+    <div class="px-4 py-3 bg-gradient-to-r from-cyan-50 to-blue-50 border-b border-gray-100">
+      <p class="text-sm font-semibold text-gray-900 truncate">
+        {{ elementoSeleccionado?.nombre }}
+      </p>
+      <p class="text-xs text-cyan-600 font-medium" *ngIf="elementoSeleccionado?.tipo !== 'crear-carpeta'">
+        {{ elementoSeleccionado?.tipo === 'carpeta' ? '📁 Carpeta' : '📄 Archivo' }}
+      </p>
+      <p class="text-xs text-cyan-600 font-medium" *ngIf="elementoSeleccionado?.tipo === 'crear-carpeta'">
+        🆕 Crear nueva carpeta
+      </p>
+    </div>
+
+    <!-- Opción de crear carpeta (solo para crear-carpeta) -->
+    <button
+      *ngIf="elementoSeleccionado?.tipo === 'crear-carpeta'"
+      (click)="navegarACrearCarpeta(); cerrarModalContextual();"
+      class="w-full px-4 py-3 text-left text-sm text-gray-700 hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 flex items-center space-x-3 transition-all duration-200 group">
+      <svg class="w-5 h-5 text-cyan-600 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+      </svg>
+      <span class="font-medium">Crear Carpeta</span>
+    </button>
+
+    <!-- Opción de detalles (para todos excepto crear-carpeta) -->
+    <button
+      *ngIf="elementoSeleccionado?.tipo !== 'crear-carpeta'"
+      (click)="verDetalles()"
+      class="w-full px-4 py-3 text-left text-sm text-gray-700 hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 flex items-center space-x-3 transition-all duration-200 group">
+      <svg class="w-5 h-5 text-cyan-600 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <span class="font-medium">Detalles</span>
+    </button>
+
+    <!-- Opción de descargar (solo para archivos/carpetas) -->
+    <button
+      *ngIf="elementoSeleccionado?.tipo !== 'crear-carpeta'"
+      (click)="descargarElemento()"
+      class="w-full px-4 py-3 text-left text-sm text-gray-700 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 flex items-center space-x-3 transition-all duration-200 group">
+      <svg class="w-5 h-5 text-green-600 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+      </svg>
+      <span class="font-medium">Descargar</span>
+    </button>
+
+    <!-- Opción de eliminar (solo para archivos/carpetas) -->
+    <button
+      *ngIf="elementoSeleccionado?.tipo !== 'crear-carpeta'"
+      (click)="eliminarElemento()"
+      class="w-full px-4 py-3 text-left text-sm text-red-600 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 flex items-center space-x-3 transition-all duration-200 group">
+      <svg class="w-5 h-5 text-red-600 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+      </svg>
+      <span class="font-medium">Eliminar</span>
+    </button>
+  </div>
+</div>
+
+<app-transferir
+  [open]="transferOpen"
+  (cancel)="closeTransfer()"
+  (confirm)="confirmTransfer($event)">
+</app-transferir>

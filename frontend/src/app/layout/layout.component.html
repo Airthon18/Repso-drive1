@@ -1,0 +1,60 @@
+<div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside
+        [class.hidden]="modoFlotante && !modoFlotanteActivo"
+        [ngClass]="{
+          'fixed top-0 left-0 h-full z-50 w-[30vw] transition-transform duration-300': modoFlotante,
+          'w-[16%]': sidebarVisible && !modoFlotante,
+          'w-[5%]': !sidebarVisible && !modoFlotante,
+          'translate-x-0': modoFlotanteActivo,
+          '-translate-x-full': modoFlotante && !modoFlotanteActivo
+        }"
+        class="bg-white shadow-lg flex flex-col py-8 px-2 border-r border-gray-200 transition-all duration-300 overflow-y-auto"><!-- md:w-72 min-w-[64px] -->
+      <div class="flex items-center justify-center mb-10">
+        <img src="assets/img/logoWolke.png" alt="Logo Wolke" class="w-full object-contain" /><!--w-100-->
+      </div>
+      <nav class="flex-1">
+        <ul class="space-y-1">
+          <li *ngFor="let vista of vistas"><!-- vistasUser || vistasAdmin -->
+            <a
+              [routerLink]="vista.ruta"
+              routerLinkActive="bg-blue-50 text-blue-700"
+              class="flex items-center gap-3 px-2 py-3 rounded-lg text-gray-600 font-medium transition-colors duration-200 hover:bg-blue-100 hover:text-blue-700"
+              [ngClass]="{
+                'justify-center': !sidebarVisible,
+                'justify-start': sidebarVisible
+              }">
+              <span class="w-5 h-5" [innerHTML]="vista.icon"></span>
+              <span *ngIf="sidebarVisible" class="whitespace-nowrap">{{vista.nombre}}</span><!-- hidden md:inline o md:inline-block-->
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <button (click)="Logout()" class="mx-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+        Cerrar sesión
+      </button>
+    </aside>
+    <!-- Backdrop para modo Flotante -->
+    <div
+    *ngIf="modoFlotante && modoFlotanteActivo"
+    class="fixed inset-0 bg-black bg-opacity-40 z-40"
+    (click)="modoFlotanteActivo = false"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen z-0">
+      <header class="flex flex-row bg-white shadow h-16 items-center px-6 text-center">
+        <button (click)="toggleSidebar()" class="flex items-center">
+          <!-- Ponerle a stroke currentColor para definir el color del svg con CSS -->
+          <svg class="inline-block w-6 h-6 text-black hover:text-gray-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 6L21 6.00078M8 12L21 12.0008M8 18L21 18.0007M3 6.5H4V5.5H3V6.5ZM3 12.5H4V11.5H3V12.5ZM3 18.5H4V17.5H3V18.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+        </button>
+        <!-- <h1 class="text-xl ms-4">{{ventana}}</h1> -->
+        <div class="ml-4 basis-full flex flex-row" [innerHTML]="contenido"></div>
+        <button class="ml-auto flex items-center transition ease-out hover:scale-110  duration-300  rounded-lg">
+          <img class="inline-block h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Imagen de perfil">
+        </button>
+      </header>
+      <section class="flex-1 p-6 overflow-y-auto bg-gray-100">
+        <router-outlet></router-outlet>
+      </section>
+    </main>
+  </div>

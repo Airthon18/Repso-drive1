@@ -1,0 +1,104 @@
+<!-- Backdrop -->
+<div *ngIf="open" class="fixed inset-0 z-[9999] flex items-center justify-center" (click)="doCancel()">
+  <div class="absolute inset-0 bg-black/35"></div>
+
+  <!-- Dialog -->
+  <div
+    class="relative bg-white rounded-2xl shadow-2xl w-[720px] max-w-[94vw] border border-gray-200"
+    (click)="$event.stopPropagation()"
+    role="dialog"
+    aria-modal="true"
+  >
+    <!-- Header -->
+    <div class="px-6 pt-6 pb-4 border-b border-gray-100 flex items-center justify-between">
+      <h3 class="text-xl font-semibold text-gray-900">Transferir</h3>
+      <button class="text-gray-500 hover:text-gray-700" (click)="doCancel()" aria-label="Cerrar">✕</button>
+    </div>
+
+    <!-- Tabs proveedor -->
+    <div class="px-6 pt-4">
+      <div class="inline-flex gap-2 rounded-full border border-gray-200 p-1">
+        <button
+          class="h-9 px-4 rounded-full text-sm"
+          [class.bg-cyan-600]="provider==='drive'" [class.text-white]="provider==='drive'"
+          (click)="changeProvider('drive')">Google Drive</button>
+        <button
+          class="h-9 px-4 rounded-full text-sm"
+          [class.bg-cyan-600]="provider==='dropbox'" [class.text-white]="provider==='dropbox'"
+          (click)="changeProvider('dropbox')">Dropbox</button>
+        <button
+          class="h-9 px-4 rounded-full text-sm"
+          [class.bg-cyan-600]="provider==='onedrive'" [class.text-white]="provider==='onedrive'"
+          (click)="changeProvider('onedrive')">OneDrive</button>
+        <button
+          class="h-9 px-4 rounded-full text-sm"
+          [class.bg-cyan-600]="provider==='url'" [class.text-white]="provider==='url'"
+          (click)="changeProvider('url')">URL</button>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="px-6 py-4">
+      <!-- Vista URL -->
+      <div *ngIf="provider==='url'" class="space-y-3">
+        <label for="urlInput" class="text-sm text-gray-700">Pega el enlace directo al archivo</label>
+        <input
+          id="urlInput"
+          type="url"
+          [(ngModel)]="linkUrl"
+          placeholder="https://ejemplo.com/archivo.zip"
+          class="w-full h-11 px-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+        />
+      </div>
+
+      <!-- Vista listado proveedores -->
+      <div *ngIf="provider!=='url'">
+        <div *ngIf="loading" class="py-8 text-center text-gray-600">Cargando…</div>
+
+        <ng-container *ngIf="!loading">
+          <!-- Encabezado -->
+          <div class="grid grid-cols-12 text-sm font-medium text-gray-900 mb-2">
+            <div class="col-span-7 flex items-center gap-3">
+              <input type="checkbox" class="w-4 h-4" [checked]="allChecked" (change)="toggleAll($any($event.target).checked)" />
+              Nombre
+            </div>
+            <div class="col-span-3">Modificado</div>
+            <div class="col-span-2 text-right">Tamaño</div>
+          </div>
+
+          <!-- Lista -->
+          <div class="max-h-64 overflow-auto border border-gray-100 rounded-xl divide-y divide-gray-100">
+            <div *ngFor="let f of files" class="grid grid-cols-12 items-center px-3 py-2 hover:bg-gray-50">
+              <div class="col-span-7 flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  class="w-4 h-4"
+                  [checked]="isChecked(f.id)"
+                  (change)="toggle(f.id, $any($event.target).checked)"
+                />
+                <span class="truncate">{{ f.name }}</span>
+              </div>
+              <div class="col-span-3 text-sm text-gray-600">{{ f.modified }}</div>
+              <div class="col-span-2 text-right text-sm text-gray-600">{{ f.size }}</div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-6 pb-6 flex items-center justify-between">
+      <button type="button" class="px-4 h-10 rounded-lg bg-gray-100 text-gray-800 hover:bg-gray-200" (click)="doCancel()">
+        Cancelar
+      </button>
+      <button
+        type="button"
+        class="px-4 h-10 rounded-lg text-white disabled:opacity-50 disabled:cursor-not-allowed"
+        [ngClass]="{ 'bg-cyan-600 hover:bg-cyan-700': isValid, 'bg-cyan-600/60': !isValid }"
+        [disabled]="!isValid"
+        (click)="doConfirm()">
+        Transferir
+      </button>
+    </div>
+  </div>
+</div>

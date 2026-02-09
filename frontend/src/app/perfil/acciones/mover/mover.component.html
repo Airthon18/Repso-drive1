@@ -1,0 +1,68 @@
+<!-- Backdrop -->
+<div *ngIf="open" class="fixed inset-0 z-[125] flex items-center justify-center" (click)="doCancel()">
+  <div class="absolute inset-0 bg-black/30"></div>
+
+  <!-- Dialog -->
+  <div
+    class="relative bg-white rounded-xl shadow-xl w-[460px] max-w-[92vw] border border-gray-300"
+    (click)="$event.stopPropagation()"
+    role="dialog"
+    aria-modal="true"
+  >
+    <!-- Header -->
+    <div class="px-5 pt-5 pb-3 border-b border-gray-100 flex items-center justify-between">
+      <h3 class="text-xl font-semibold text-gray-900">Mover a</h3>
+      <button class="text-gray-500 hover:text-gray-700" (click)="doCancel()" aria-label="Cerrar">✕</button>
+    </div>
+
+    <!-- Body -->
+    <div class="px-5 py-4 space-y-3">
+      <p class="text-sm text-gray-600">
+        {{ count }} elemento<span *ngIf="count!==1">s</span> seleccionado<span *ngIf="count!==1">s</span>
+      </p>
+
+      <!-- Lista de destinos -->
+      <div class="max-h-60 overflow-auto border border-gray-200 rounded-lg">
+        <button
+          *ngFor="let opt of options"
+          type="button"
+          class="w-full flex items-center justify-between px-3 py-2 text-left hover:bg-gray-50"
+          [class.opacity-50]="opt.disabled"
+          [disabled]="opt.disabled"
+          (click)="!opt.disabled && pick(opt.id)"
+        >
+          <div class="flex items-center gap-2">
+            <!-- ícono carpeta -->
+            <svg class="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M10 4l2 2h8a2 2 0 012 2v2H2V6a2 2 0 012-2h6z"/>
+              <path d="M2 10h22v8a2 2 0 01-2 2H4a2 2 0 01-2-2v-8z"/>
+            </svg>
+            <span class="text-gray-800">{{ opt.name }}</span>
+          </div>
+          <span class="text-cyan-600" *ngIf="destId === opt.id">✓</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-5 pb-5 flex items-center justify-between">
+      <button
+        type="button"
+        class="px-4 h-10 rounded-full border border-gray-300 text-gray-800 hover:bg-gray-50"
+        (click)="doCancel()"
+      >
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        class="px-4 h-10 rounded-full text-white disabled:opacity-50 disabled:cursor-not-allowed"
+        [ngClass]="{ 'bg-cyan-500 hover:bg-cyan-600': isValid, 'bg-cyan-500/60': !isValid }"
+        [disabled]="!isValid"
+        (click)="doConfirm()"
+      >
+        Mover
+      </button>
+    </div>
+  </div>
+</div>

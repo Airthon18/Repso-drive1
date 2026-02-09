@@ -1,0 +1,122 @@
+<!-- Backdrop -->
+<div *ngIf="open" class="fixed inset-0 z-[110] flex items-center justify-center" (click)="doCancel()">
+  <div class="absolute inset-0 bg-black/30"></div>
+
+  <!-- Dialog -->
+  <div
+    class="relative bg-white rounded-xl shadow-xl w-[460px] max-w-[92vw] border border-gray-300"
+    role="dialog"
+    aria-modal="true"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Header -->
+    <div class="px-5 pt-5 pb-3 border-b border-gray-100">
+      <h3 class="text-xl font-semibold text-gray-900">
+        Compartir {{ targetName }}
+      </h3>
+    </div>
+
+    <!-- Body -->
+    <div class="px-5 py-4 space-y-4">
+      <div class="grid grid-cols-12 gap-3">
+        <!-- Email -->
+        <div class="col-span-8">
+          <label for="shareEmail" class="sr-only">Correo para compartir</label>
+          <input
+            id="shareEmail"
+            type="email"
+            [(ngModel)]="email"
+            placeholder="usuario@dominio.com"
+            class="w-full h-10 px-3 rounded-lg border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          />
+        </div>
+
+        <!-- Selector de rol -->
+        <div class="col-span-4" *ngIf="email.trim().length > 0">
+          <div class="relative">
+            <button
+              type="button"
+              class="w-full h-10 px-3 rounded-lg border border-gray-300 text-gray-900 flex items-center justify-between hover:bg-gray-50"
+              (click)="toggleRoleMenu(); $event.stopPropagation()"
+              aria-haspopup="listbox"
+              [attr.aria-expanded]="roleMenuOpen"
+              aria-label="Seleccionar rol de acceso"
+            >
+              <span>{{ roleLabel }}</span>
+              <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+
+            <!-- Dropdown -->
+            <div *ngIf="roleMenuOpen" class="absolute right-0 mt-1 w-56 rounded-lg border border-gray-200 bg-white shadow-lg z-10" role="listbox">
+              <button class="w-full text-left px-3 py-2 hover:bg-gray-50" (click)="chooseRole('lector')" role="option">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-gray-900">Lector</div>
+                    <div class="text-xs text-gray-500">solo lectura</div>
+                  </div>
+                  <span *ngIf="role==='lector'" class="text-cyan-600">✓</span>
+                </div>
+              </button>
+              <button class="w-full text-left px-3 py-2 hover:bg-gray-50" (click)="chooseRole('comentador')" role="option">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-gray-900">Comentador</div>
+                    <div class="text-xs text-gray-500">puede comentar</div>
+                  </div>
+                  <span *ngIf="role==='comentador'" class="text-cyan-600">✓</span>
+                </div>
+              </button>
+              <button class="w-full text-left px-3 py-2 hover:bg-gray-50" (click)="chooseRole('editor')" role="option">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-gray-900">Editor</div>
+                    <div class="text-xs text-gray-500">puede modificar</div>
+                  </div>
+                  <span *ngIf="role==='editor'" class="text-cyan-600">✓</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensaje -->
+      <div>
+        <label for="shareMsg" class="sr-only">Mensaje</label>
+        <textarea
+          id="shareMsg"
+          rows="3"
+          [(ngModel)]="message"
+          placeholder="Mensaje"
+          class="w-full px-3 py-2 rounded-lg border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-y"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-5 pb-5 flex items-center justify-between">
+      <button
+        type="button"
+        class="px-4 h-10 rounded-full border border-gray-300 text-gray-800 hover:bg-gray-50"
+        (click)="doCancel()"
+      >
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        class="px-4 h-10 rounded-full text-white"
+        [ngClass]="{
+          'bg-cyan-400': isEmailValid,
+          'bg-cyan-400/60 cursor-not-allowed': !isEmailValid
+        }"
+        [disabled]="!isEmailValid"
+        (click)="doSend()"
+      >
+        Enviar
+      </button>
+    </div>
+  </div>
+</div>

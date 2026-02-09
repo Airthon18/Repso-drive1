@@ -1,0 +1,302 @@
+<!-- CONTENEDOR -->
+<div class="m-8">
+
+  <!-- Fila superior: título + buscador + acciones
+  <div class="flex flex-wrap items-center gap-3">
+    <h1 class="text-2xl font-semibold text-gray-900">Mis archivos</h1>
+
+
+    <div class="w-full sm:w-auto sm:flex-1 ml-3">
+      <div class="relative max-w-xs">
+        <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-400">
+           lupa
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m21 21-4.35-4.35M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"/>
+          </svg>
+        </span>
+        <input
+          type="text"
+          placeholder="Buscar archivos"
+          class="w-full h-10 pl-9 pr-3 rounded-lg border border-gray-200 text-sm
+                 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+    </div>
+
+
+    <div class="flex items-center gap-2">
+      <button
+        class="inline-flex items-center h-10 px-3 rounded-lg border border-gray-200 text-gray-700 text-sm hover:bg-gray-50">
+
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 5h18M6 12h12M10 19h4"/>
+        </svg>
+        Todos los archivos
+        <svg class="w-4 h-4 ml-1 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/>
+        </svg>
+      </button>
+
+      <button
+        class="inline-flex items-center h-10 px-3 rounded-lg border border-gray-200 text-gray-700 text-sm hover:bg-gray-50">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 4v16m8-8H4"/>
+        </svg>
+        Subir archivos
+      </button>
+
+      <button
+        class="inline-flex items-center h-10 px-3 rounded-lg border border-gray-200 text-gray-700 text-sm hover:bg-gray-50">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 7h16M4 17h16M7 4v6M17 14v6"/>
+        </svg>
+        Nueva carpeta
+      </button>
+    </div>
+  </div>
+  -->
+
+  <!-- Sección “Mi unidad” -->
+  <h2 class="font-semibold text-3xl">Mi unidad</h2>
+  <div class="mt-6 p-4 md:p-6 rounded-lg bg-white">
+    <!-- Controles de vista (derecha) -->
+    <div class="flex items-center justify-end">
+      <div class="inline-flex items-center rounded-full border border-gray-200 p-1 gap-1">
+        <button
+          class="flex items-center gap-1 h-8 px-3 rounded-full text-sm
+                border border-transparent"
+          [class.bg-blue-600]="view === 'list'"
+          [class.text-white]="view === 'list'"
+          [class.text-gray-700]="view !== 'list'"
+          (click)="view='list'">
+          <!-- check + lista -->
+          <svg class="w-4 h-4" [class.text-white]="view==='list'" [class.text-gray-600]="view!=='list'"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m5 13 4 4L19 7"/>
+          </svg>
+          <svg class="w-4 h-4" [class.text-white]="view==='list'" [class.text-gray-600]="view!=='list'"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <!-- Encabezadossss prueba no sirve -->
+        <button
+          class="h-8 px-3 rounded-full text-sm text-gray-700 hover:bg-gray-50"
+          [class.bg-blue-600]="view === 'grid'"
+          [class.text-white]="view === 'grid'"
+          [class.text-gray-700]="view !== 'grid'"
+          (click)="view='grid'">
+          <svg class="w-4 h-4 text-gray-600" [class.text-white]="view==='grid'" [class.text-gray-600]="view!=='grid'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ====== GRID ====== -->
+    <div *ngIf="view === 'grid'" class="ml-2 mt-4">
+      <app-vista-por-cuadriculas
+        [items]="items"
+        (itemClick)="onGridItemClick($event)">
+      </app-vista-por-cuadriculas>
+    </div>
+
+    <!-- ====== LISTA ====== -->
+    <div *ngIf="view === 'list'">
+      <!-- Encabezados -->
+      <div class="mt-3 grid grid-cols-12 items-center text-sm md:text-base font-bold text-gray-900 px-1 md:px-2">
+        <div class="col-span-6 md:col-span-6 flex items-center gap-3">
+          <!-- SELECT ALL -->
+          <input
+            type="checkbox"
+            class="w-4 h-4 rounded border-gray-300"
+            [checked]="selectedCount === rows.length && rows.length > 0"
+            (change)="toggleSelectAll($any($event.target).checked)"
+          />
+          Nombres
+        </div>
+        <div class="col-span-3">Modificados</div>
+        <div class="col-span-3">Tamaño</div>
+      </div>
+
+      <!-- Tabla -->
+      <div class="mt-2 divide-y divide-gray-100 border border-gray-100 rounded-xl overflow-hidden">
+        <div
+          *ngFor="let r of rows; let i = index"
+          class="grid grid-cols-12 items-center px-2 md:px-3 py-2 hover:bg-gray-50">
+          <!-- Nombres -->
+          <div class="col-span-6 md:col-span-6 flex items-center gap-3">
+            <!-- CHECKBOX POR FILA -->
+            <input
+              type="checkbox"
+              class="w-4 h-4 rounded border-gray-300"
+              [checked]="r.selected"
+              (change)="toggleRowSelection(r, $any($event.target).checked)"
+            />
+
+            <!-- Icono por tipo -->
+            <ng-container [ngSwitch]="r.type">
+              <!-- carpeta -->
+              <svg *ngSwitchCase="'folder'" class="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 4l2 2h8a2 2 0 012 2v2H2V6a2 2 0 012-2h6z"/><path d="M2 10h22v8a2 2 0 01-2 2H4a2 2 0 01-2-2v-8z"/>
+              </svg>
+              <!-- imagen -->
+              <svg *ngSwitchCase="'imgfile'" class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 4h16v16H4zM4 16l4-4 3 3 5-5 4 4"/>
+              </svg>
+              <!-- pdf -->
+              <svg *ngSwitchCase="'pdf'" class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 2h8l6 6v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><text x="7" y="19" font-size="8" fill="white">PDF</text>
+              </svg>
+              <!-- ppt -->
+              <svg *ngSwitchCase="'ppt'" class="w-5 h-5 text-orange-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 2h8l6 6v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><text x="7" y="19" font-size="8" fill="white">PPT</text>
+              </svg>
+              <!-- video -->
+              <svg *ngSwitchCase="'video'" class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <rect x="3" y="6" width="13" height="12" rx="2" ry="2"></rect>
+                <path d="M16 10l5-3v10l-5-3z"></path>
+              </svg>
+            </ng-container>
+
+            <span class="text-sm text-gray-800 truncate">{{ r.name }}</span>
+          </div>
+
+          <!-- Modificados -->
+          <div class="col-span-3 text-sm text-gray-600">
+            {{ r.modified }}
+          </div>
+
+          <!-- tamaño -->
+          <div class="col-span-3 text-sm text-gray-600">
+            {{ r.size }}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Barra de almacenamiento -->
+    <div class="mt-6 border-t border-gray-100 pt-3">
+      <div class="flex items-center gap-2 text-xs text-gray-600 mb-2">
+        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 12h18M5 12a7 7 0 0114 0M4 16h16"/>
+        </svg>
+        Almacenamiento utilizado
+      </div>
+      <div class="w-full h-2 rounded-full bg-gray-100 overflow-hidden">
+        <div class="h-full bg-blue-600" style="width: 30%;"></div>
+      </div>
+      <div class="mt-1 text-right text-xs text-gray-600">1.5 GB de 5 GB usados</div>
+    </div>
+
+    <!-- ====== BARRA AZUL DE ACCIONES (solo si hay selección) ====== -->
+    <div
+      *ngIf="hasSelection"
+      class="fixed left-0 right-0 bottom-6 mx-auto max-w-5xl px-6 z-50">
+      <div
+        class="bg-blue-600 text-white rounded-xl shadow-xl shadow-blue-600/30
+              flex items-center justify-between px-5 py-3">
+        <!-- Texto -->
+        <span class="text-sm md:text-base font-medium">
+          {{ selectedCount }} elemento{{ selectedCount > 1 ? 's' : '' }}
+          seleccionado{{ selectedCount > 1 ? 's' : '' }}
+        </span>
+
+        <!-- Botones -->
+        <div class="flex gap-2">
+          <!-- Botón principal -->
+          <button
+            class="px-4 py-2 rounded-lg text-sm font-medium
+                  bg-white text-blue-600 hover:bg-gray-100
+                  transition-colors shadow-sm"
+            (click)="onRename()">
+            Renombrar
+          </button>
+
+          <!-- Botones secundarios -->
+          <button
+            class="px-4 py-2 rounded-lg text-sm font-medium
+                  bg-white/20 hover:bg-white/30
+                  transition-colors"
+            (click)="onShare()">
+            Compartir
+          </button>
+          <button
+            class="px-4 py-2 rounded-lg text-sm font-medium
+                  bg-white/20 hover:bg-white/30
+                  transition-colors"
+            (click)="onDownload()">
+            Descargar
+          </button>
+
+          <!-- Botón peligro -->
+          <button
+            class="px-4 py-2 rounded-lg text-sm font-medium
+                  bg-red-500 text-white hover:bg-red-600
+                  transition-colors"
+            (click)="onDelete()">
+            Eliminar
+          </button>
+          <!-- Botón neutro -->
+          <button
+            class="px-4 py-2 rounded-lg text-sm font-medium
+                  bg-white/20 hover:bg-white/30
+                  transition-colors"
+            (click)="onMove()">
+            Mover
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RENOMBRAR -->
+<app-renombrar
+  [open]="renameOpen"
+  [currentName]="renameTarget?.name || ''"
+  (cancel)="closeRename()"
+  (confirm)="applyRename($event)">
+</app-renombrar>
+<!-- MODAL COMPARTIR -->
+<app-compartir
+  [open]="shareOpen"
+  [targetName]="shareTarget?.name || ''"
+  [defaultEmail]="shareEmail"
+  [defaultMessage]="shareMessage"
+  [defaultRole]="currentRole"
+  (cancel)="closeShare()"
+  (send)="handleShareSend($event)">
+</app-compartir>
+<!-- MODAL DESCARGAR -->
+<app-descargar
+  [open]="downloadOpen"
+  [count]="selectedCount"
+  (close)="closeDownload()">
+</app-descargar>
+
+<app-eliminar
+  [open]="deleteOpen"
+  [primaryName]="deletePrimaryName"
+  [count]="selectedCount"
+  (cancel)="closeDelete()"
+  (confirm)="confirmDelete()">
+</app-eliminar>
+<app-mover
+  [open]="moveOpen"
+  [options]="moveOptions"
+  [count]="selectedCount"
+  [defaultDestId]="moveDefaultId"
+  (cancel)="closeMove()"
+  (confirm)="confirmMove($event)">
+</app-mover>

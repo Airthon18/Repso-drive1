@@ -1,0 +1,2 @@
+/* Opcional: utilidades mínimas por si Tailwind no aplica en html inyectado */
+:host { display: contents; }

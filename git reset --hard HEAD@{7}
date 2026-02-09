@@ -1,0 +1,28 @@
+[33md2fcf3b[m[33m ([m[1;36mHEAD -> [m[1;32mGaby[m[33m, [m[1;31morigin/Gaby[m[33m)[m HEAD@{0}: checkout: moving from gino to Gaby
+[33m391355c[m[33m ([m[1;31morigin/gino[m[33m, [m[1;32mgino[m[33m)[m HEAD@{1}: checkout: moving from Manu to gino
+[33m6b09ca1[m[33m ([m[1;31morigin/Manu[m[33m, [m[1;32mManu[m[33m)[m HEAD@{2}: checkout: moving from Josue to Manu
+[33m1d7e63b[m[33m ([m[1;31morigin/Josue[m[33m, [m[1;32mJosue[m[33m)[m HEAD@{3}: checkout: moving from Bayron to Josue
+[33m97c7923[m[33m ([m[1;31morigin/Bayron[m[33m, [m[1;32mBayron[m[33m)[m HEAD@{4}: checkout: moving from Hassad to Bayron
+[33mfe9c595[m[33m ([m[1;31morigin/Hassad[m[33m, [m[1;32mHassad[m[33m)[m HEAD@{5}: checkout: moving from Gaby to Hassad
+[33md2fcf3b[m[33m ([m[1;36mHEAD -> [m[1;32mGaby[m[33m, [m[1;31morigin/Gaby[m[33m)[m HEAD@{6}: commit: Acomodando codigo en configuracion y home
+[33m883ae55[m HEAD@{7}: commit (merge): realizando merge
+[33m16e2425[m HEAD@{8}: checkout: moving from Rodrigo to Gaby
+[33mc764812[m[33m ([m[1;31morigin/Rodrigo[m[33m, [m[1;32mrodrigo[m[33m)[m HEAD@{9}: checkout: moving from Gaby to Rodrigo
+[33m16e2425[m HEAD@{10}: checkout: moving from rodrigo to Gaby
+[33mc764812[m[33m ([m[1;31morigin/Rodrigo[m[33m, [m[1;32mrodrigo[m[33m)[m HEAD@{11}: checkout: moving from Gaby to rodrigo
+[33m16e2425[m HEAD@{12}: checkout: moving from rodrigo to Gaby
+[33mc764812[m[33m ([m[1;31morigin/Rodrigo[m[33m, [m[1;32mrodrigo[m[33m)[m HEAD@{13}: checkout: moving from Gaby to rodrigo
+[33m16e2425[m HEAD@{14}: commit (merge): Jalando cambios de rama renzo
+[33mc5f686e[m HEAD@{15}: checkout: moving from renzo to Gaby
+[33m946435c[m[33m ([m[1;31morigin/renzo[m[33m, [m[1;32mrenzo[m[33m)[m HEAD@{16}: checkout: moving from Gaby to renzo
+[33mc5f686e[m HEAD@{17}: commit: Separacion de los links en arrays admin y user
+[33m632f442[m HEAD@{18}: commit: Agregar depliegue de sidebar
+[33m1259222[m HEAD@{19}: pull origin Gaby: Fast-forward
+[33mf04ea2a[m HEAD@{20}: pull origin Gaby: Fast-forward
+[33mb15fcfb[m HEAD@{21}: commit: Agregarle fuente poppins
+[33m89265b6[m HEAD@{22}: pull origin Gaby: Fast-forward
+[33ma8cfb06[m HEAD@{23}: commit: Terminar vista Inicio
+[33m7525dcd[m HEAD@{24}: commit (merge): Realizar merge y agregar cambios - back para desplazarse entre vistas
+[33m12ac8a0[m HEAD@{25}: commit: Agregando cambios
+[33mf4586f4[m HEAD@{26}: checkout: moving from main to Gaby
+[33mb0125ab[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{27}: clone: from https://github.com/Codectafrontent2/Wolke.git
