@@ -13,7 +13,6 @@
 /yarn.lock
 
 # Environment files
-/.env
 
 # Angular CLI and build artefacts
 /.angular-cli.json
@@ -29,4 +28,7 @@ yarn-error.log*
 node_modules/
 dist/
 .angular/
-.env
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+config.bat

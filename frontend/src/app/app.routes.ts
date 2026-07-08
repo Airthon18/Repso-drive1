@@ -15,7 +15,7 @@ import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
-    { path: '', component: LayoutComponent, canActivateChild: [authGuard],
+    { path: '', component: LayoutComponent, canActivate: [authGuard], canActivateChild: [authGuard],
       children: [
         { path: 'home', component: HomeComponent, data: { role: 'user' } },
         { path: 'user', component: UserComponent, data: { role: 'admin' } },//modals-usuarios
